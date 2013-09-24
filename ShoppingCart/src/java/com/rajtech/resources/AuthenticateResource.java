@@ -18,7 +18,7 @@ import javax.ws.rs.Produces;
  *
  * @author Rajtech
  */
-@Path("Authenticate")
+@Path("Auth")
 public class AuthenticateResource {
 
     @Context
@@ -38,7 +38,7 @@ public class AuthenticateResource {
     @Produces("application/xml")
     public String getXml() {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        return "test";
     }
 
     /**
