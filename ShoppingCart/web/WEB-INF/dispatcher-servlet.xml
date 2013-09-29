@@ -19,6 +19,7 @@
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
+                <prop key="error.htm">errorController</prop>
             </props>
         </property>
     </bean>
@@ -34,5 +35,13 @@
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />
-
+          <!--
+    The Error controller.
+    -->
+ <bean name="errorController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="error" />
 </beans>
+
+
+
