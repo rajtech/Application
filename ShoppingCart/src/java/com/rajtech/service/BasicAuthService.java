@@ -5,7 +5,6 @@
 package com.rajtech.service;
 
 import com.rajtech.util.Generator;
-import java.net.UnknownHostException;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
@@ -15,13 +14,17 @@ import org.joda.time.Period;
  */
 public class BasicAuthService {
     private Generator guidGenerator = new Generator(); 
+    AuthCode ac;
     
-    public AuthCode generator(String username, Period validPeriod) throws UnknownHostException{
+    public AuthCode generator(String username, Period validPeriod) {
+        if (username == null){
+            return new AuthCode();
+        }
         return createAuthToken(username,validPeriod);
     }
-    private AuthCode createAuthToken(String username,Period validPeriod) throws UnknownHostException{
+    private AuthCode createAuthToken(String username,Period validPeriod){
         String code = guidGenerator.generator();
-        AuthCode ac = new AuthCode(code,username,DateTime.now(),DateTime.now().plus(validPeriod));
+         ac = new AuthCode(code,username,DateTime.now(),DateTime.now().plus(validPeriod));
         return ac;
     }
             
