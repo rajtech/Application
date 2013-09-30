@@ -32,8 +32,8 @@ import org.joda.time.Period;
  *
  * @author Rajtech
  */
-@Path("Auth")
-public class AuthenticateResource {
+@Path("login")
+public class LoginResource {
 
     @Context
     HttpServletRequest request;
@@ -44,12 +44,12 @@ public class AuthenticateResource {
     BasicAuthService bas = new BasicAuthService();
     String output = null;
     private URI location;
-     Logger logger = Logger.getLogger(AuthenticateResource.class.getName());
+     Logger logger = Logger.getLogger(LoginResource.class.getName());
      UserDaoImpl udi = new UserDaoImpl();
     /**
      * Creates a new instance of AuthenticateResource
      */
-    public AuthenticateResource() {
+    public LoginResource() {
     }
 
     /**
@@ -59,7 +59,7 @@ public class AuthenticateResource {
     @POST
    // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@FormParam("username") String  username,@FormParam("password") String  password,@FormParam("sendTo") String  sendto,@FormParam("failureUrl") String  failureurl) throws URISyntaxException {
+     public Response getUser(@FormParam("username") String  username,@FormParam("password") String  password,@FormParam("sendTo") String  sendto,@FormParam("failureUrl") String  failureurl) throws URISyntaxException {
         AuthCode ac = new AuthCode();
         System.out.println("Output from Server .... \n");
         session = request.getSession();
@@ -67,10 +67,14 @@ public class AuthenticateResource {
         boolean isExists = udi.isUserExists(username, password);
         System.out.println(isExists);
         if(!isExists){
-            return Response.status(401).build();
+            if(failureurl == null || failureurl.isEmpty()){
+                  failureurl ="http://localhost:8080/ShoppingCart/error.htm";
+              }
+             location = new URI(failureurl);
+               return Response.temporaryRedirect(location).build();  
         }
         ac = bas.generator(username, Period.days(1));
-        if (ac.getCode() == null) {
+       if (ac.getCode() == null) {
             request.setAttribute("errorMessage", BasicAuthException.USERNAME_ISEMPTY);
               Logger.getLogger(AuthenticateResource.class.getName()).log(Level.ERROR, BasicAuthException.USERNAME_ISEMPTY);
               if(failureurl == null || failureurl.isEmpty()){

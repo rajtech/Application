@@ -20,13 +20,14 @@
             <props>
                 <prop key="index.htm">indexController</prop>
                 <prop key="error.htm">errorController</prop>
+                <prop key="success.htm">loginController</prop>
             </props>
         </property>
     </bean>
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/jsp/"
+          p:prefix="/jsp/"
           p:suffix=".jsp" />
 
     <!--
@@ -38,9 +39,13 @@
           <!--
     The Error controller.
     -->
- <bean name="errorController"
+    <bean name="errorController"
+       class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+       p:viewName="error" />
+          
+    <bean name="loginController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="error" />
+          p:viewName="home" />
 </beans>
 
 

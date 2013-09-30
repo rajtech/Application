@@ -15,5 +15,10 @@
                 the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
                 welcome page and also update the welcome-file setting in</i>
             <tt>web.xml</tt>.</p>
+        <form action="resource/login" method="POST" >
+            <input id="username" name="username" value="" type="text"/>
+            <input id="password" name="password" value="" type="password"/>
+            <input type="submit" value="Submit"/>
+        </form>
     </body>
 </html>

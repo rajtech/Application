@@ -17,7 +17,8 @@ import org.apache.log4j.Logger;
  *
  * @author Rajtech
  */
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
+
     ArrayList<User> user;
     DatabaseConnection dbc = new DatabaseConnection();
     Statement stm = null;
@@ -31,7 +32,7 @@ public class UserDaoImpl implements UserDao{
             stm.executeQuery("select * from user  order by username asc");
             ResultSet rs = stm.getResultSet();
             while (rs.next()) {
-                user.add(new User(rs.getInt("userid"), rs.getString("username"),rs.getString("password"),rs.getDate("datecreated"),rs.getDate("datemodified"),rs.getInt("statusid"),rs.getString("createdby"),rs.getString("modifiedby")));
+                user.add(new User(rs.getInt("userid"), rs.getString("username"), rs.getString("password"), rs.getDate("datecreated"), rs.getDate("datemodified"), rs.getInt("statusid"), rs.getString("createdby"), rs.getString("modifiedby")));
             }
             rs.close();
             stm.close();
@@ -46,14 +47,14 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public ArrayList<User> getUserById(int userid) {
-         try {
+        try {
             user = new ArrayList<User>();
             dbc.connectionPool();
             stm = (Statement) dbc.conn.createStatement();
             stm.executeQuery("select * from user  where userid=" + userid);
             ResultSet rs = stm.getResultSet();
             while (rs.next()) {
-                user.add(new User(rs.getInt("userid"), rs.getString("username"),rs.getString("password"),rs.getDate("datecreated"),rs.getDate("datemodified"),rs.getInt("statusid"),rs.getString("createdby"),rs.getString("modifiedby")));
+                user.add(new User(rs.getInt("userid"), rs.getString("username"), rs.getString("password"), rs.getDate("datecreated"), rs.getDate("datemodified"), rs.getInt("statusid"), rs.getString("createdby"), rs.getString("modifiedby")));
             }
             rs.close();
             stm.close();
@@ -73,12 +74,12 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void deleteUSer(String[] userid) {
-       try {
+        try {
             dbc.connectionPool();
             stm = (Statement) dbc.conn.createStatement();
-            for(int i=0; i<userid.length; i++){
+            for (int i = 0; i < userid.length; i++) {
 
-            stm.execute("delete from user where userid=" + userid[i]);
+                stm.execute("delete from user where userid=" + userid[i]);
             }
             stm.close();
             dbc.conectionClose();
@@ -92,8 +93,8 @@ public class UserDaoImpl implements UserDao{
         try {
             dbc.connectionPool();
             stm = (Statement) dbc.conn.createStatement();
-            String SqlQuery = "insert into user(userid,username,password,datecreated,datemodified,statusid,createdby,modifiedby) values(null,'" + user.getUserName()+ "','" + user.getPassword()+ "','" + user.getDateCreated()+ "','" + user.getDateModified()+ "'," + user.getStatusId()+ ",'" + user.getCreatedBy()+ "','" + user.getModfiedBy()+ "')";
-            stm.execute(SqlQuery); 
+            String SqlQuery = "insert into user(userid,username,password,datecreated,datemodified,statusid,createdby,modifiedby) values(null,'" + user.getUserName() + "','" + user.getPassword() + "','" + user.getDateCreated() + "','" + user.getDateModified() + "'," + user.getStatusId() + ",'" + user.getCreatedBy() + "','" + user.getModfiedBy() + "')";
+            stm.execute(SqlQuery);
             stm.close();
             dbc.conectionClose();
 
@@ -115,9 +116,10 @@ public class UserDaoImpl implements UserDao{
 //        } catch (SQLException ex) {
 //            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.ERROR, "Add User", ex);
 //        }
-        if (username.equals("username") && password.equalsIgnoreCase("password"))
+        if (username.equals("username") && password.equalsIgnoreCase("password")) {
             return true;
-        
-            return false;
+        }
+
+        return false;
     }
 }
