@@ -42,7 +42,9 @@
     <bean name="errorController"
        class="org.springframework.web.servlet.mvc.ParameterizableViewController"
        p:viewName="error" />
-          
+               <!--
+    The Login controller.
+    -->  
     <bean name="loginController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="home" />

@@ -59,7 +59,7 @@ public class LoginResource {
     @POST
    // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-     public Response getUser(@FormParam("username") String  username,@FormParam("password") String  password,@FormParam("sendTo") String  sendto,@FormParam("failureUrl") String  failureurl) throws URISyntaxException {
+     public Response getUser(@FormParam("username") String  username,@FormParam("password") String  password,@FormParam("sendTo") String  sendto,@FormParam("failureUrl") String  failureurl) throws URISyntaxException, IOException {
         AuthCode ac = new AuthCode();
         System.out.println("Output from Server .... \n");
         session = request.getSession();
@@ -81,6 +81,8 @@ public class LoginResource {
                   failureurl ="http://localhost:8080/ShoppingCart/error.htm";
               }
              location = new URI(failureurl);
+
+             response.sendError(401,BasicAuthException.USERNAME_ISEMPTY);
                return Response.temporaryRedirect(location).build();  
         } else {
             
