@@ -46,7 +46,8 @@ public class LoginResource {
     private URI location;
      Logger logger = Logger.getLogger(LoginResource.class.getName());
      UserDaoImpl udi = new UserDaoImpl();
-    /**
+     public String SUCCESS ="Success";
+     /**
      * Creates a new instance of AuthenticateResource
      */
     public LoginResource() {
@@ -86,11 +87,13 @@ public class LoginResource {
                return Response.temporaryRedirect(location).build();  
         } else {
             
-            session.setAttribute("loginstatus", BasicAuthException.AccessToken_Generated);
+            session.setAttribute("loginstatus", this.SUCCESS);
             session.setAttribute("access_token", ac.getCode());
+            session.setAttribute("username",username);
             Cookie cookie = new Cookie("access_token", ac.getCode());
+            
             response.addCookie(cookie);
-              Logger.getLogger(AuthenticateResource.class.getName()).log(Level.ERROR, BasicAuthException.AccessToken_Generated);
+              Logger.getLogger(AuthenticateResource.class.getName()).log(Level.INFO, BasicAuthException.AccessToken_Generated);
               if(sendto == null || sendto.isEmpty()){
                   sendto ="http://localhost:8080/ShoppingCart/success.htm";
               }

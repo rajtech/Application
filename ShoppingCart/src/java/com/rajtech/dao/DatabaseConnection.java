@@ -35,6 +35,24 @@ public class DatabaseConnection {
                
            }
     }
+        public void medicalConnectionPool(){
+    
+           try
+           {
+               String userName = "root";
+               String password = "root";
+               String url = "jdbc:mysql://localhost:3306/medicals";
+               Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+               conn = (Connection) DriverManager.getConnection (url, userName, password);
+               Logger.getLogger(DatabaseConnection.class.getName()).log(Level.ERROR, DatabaseException.DATABASE_CONNECTED);
+               //System.out.println ("Database connection established");
+           }
+           catch (Exception e)
+           {
+                  Logger.getLogger(DatabaseConnection.class.getName()).log(Level.ERROR, DatabaseException.DATABASE_NOT_CONNECTED +",Error :DB101", e);
+               
+           }
+    }
       public void conectionClose() throws SQLException{
         conn.close();
     }

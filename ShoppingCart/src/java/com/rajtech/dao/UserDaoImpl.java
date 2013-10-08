@@ -105,18 +105,25 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean isUserExists(String username, String password) {
-//        try {
-//            dbc.connectionPool();
-//            stm = (Statement) dbc.conn.createStatement();
-//            String SqlQuery = "select count(*) where username ='"+username+"' and password ='"+password+"'";
-//            stm.execute(SqlQuery); 
-//            stm.close();
-//            dbc.conectionClose();
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.ERROR, "Add User", ex);
-//        }
-        if (username.equals("username") && password.equalsIgnoreCase("password")) {
+        Integer isExists =0;
+        try {
+            
+            dbc.medicalConnectionPool();
+            stm = (Statement) dbc.conn.createStatement();
+            String SqlQuery = "select count(*)as count from user where username ='"+username+"' and password ='"+password+"'";
+            stm.execute(SqlQuery); 
+             ResultSet rs = stm.getResultSet();
+            while (rs.next()) {
+                isExists = rs.getInt("count"); 
+                System.out.println(isExists);
+            }
+            stm.close();
+            dbc.conectionClose();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.ERROR, "Add User", ex);
+        }
+        if (isExists > 0) {
             return true;
         }
 
