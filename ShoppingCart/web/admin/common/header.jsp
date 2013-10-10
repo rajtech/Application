@@ -23,7 +23,7 @@
 <script type="text/javascript" src="javascript/jquery/tabs.js"></script>
 
 <script type="text/javascript" src="javascript/jquery/superfish/js/superfish.js"></script>
-        <title>Dashboard</title>
+        <title>Dashboards</title>
         <script type="text/javascript">
 //-----------------------------------------
 // Confirm Actions (delete, uninstall)
