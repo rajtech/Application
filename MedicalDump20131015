@@ -1,0 +1,403 @@
+CREATE DATABASE  IF NOT EXISTS `medicals` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `medicals`;
+-- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+--
+-- Host: 127.0.0.1    Database: medicals
+-- ------------------------------------------------------
+-- Server version	5.5.22
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `status` (
+  `StatusID` int(11) NOT NULL AUTO_INCREMENT,
+  `Status` varchar(45) NOT NULL,
+  PRIMARY KEY (`StatusID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status`
+--
+
+LOCK TABLES `status` WRITE;
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` VALUES (1,'Active'),(2,'Closed'),(3,'Activesss'),(4,'Activesss'),(5,'Activesss'),(6,'Activesss'),(7,'Activesss');
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `city`
+--
+
+DROP TABLE IF EXISTS `city`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `city` (
+  `CityID` int(11) NOT NULL AUTO_INCREMENT,
+  `CityName` varchar(100) NOT NULL,
+  `PinCode` varchar(10) NOT NULL,
+  `ShortName` varchar(10) NOT NULL,
+  PRIMARY KEY (`CityID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `city`
+--
+
+LOCK TABLES `city` WRITE;
+/*!40000 ALTER TABLE `city` DISABLE KEYS */;
+INSERT INTO `city` VALUES (1,'Chennai','600 001','MAA');
+/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productlocation`
+--
+
+DROP TABLE IF EXISTS `productlocation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `productlocation` (
+  `ProductLocationID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProductLocation` varchar(45) NOT NULL,
+  PRIMARY KEY (`ProductLocationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productlocation`
+--
+
+LOCK TABLES `productlocation` WRITE;
+/*!40000 ALTER TABLE `productlocation` DISABLE KEYS */;
+INSERT INTO `productlocation` VALUES (1,'Shelf A'),(2,'Shelf B');
+/*!40000 ALTER TABLE `productlocation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `country`
+--
+
+DROP TABLE IF EXISTS `country`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `country` (
+  `CountryID` int(11) NOT NULL AUTO_INCREMENT,
+  `Country` varchar(45) NOT NULL,
+  `ShortDesc` varchar(45) NOT NULL,
+  `Currency` varchar(4) NOT NULL,
+  `Flag` blob,
+  PRIMARY KEY (`CountryID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `country`
+--
+
+LOCK TABLES `country` WRITE;
+/*!40000 ALTER TABLE `country` DISABLE KEYS */;
+INSERT INTO `country` VALUES (1,'India','IND','Rs.',NULL);
+/*!40000 ALTER TABLE `country` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `company`
+--
+
+DROP TABLE IF EXISTS `company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `company` (
+  `CompanyID` int(11) NOT NULL AUTO_INCREMENT,
+  `CompanyName` varchar(100) NOT NULL,
+  `CompanyAddress1` varchar(60) DEFAULT NULL,
+  `CompanyAddress2` varchar(60) DEFAULT NULL,
+  `CompanyAddress3` varchar(60) DEFAULT NULL,
+  `CityID` int(11) NOT NULL,
+  `CountryID` int(11) NOT NULL,
+  `ContactPerson` varchar(45) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `TelephoneNo` varchar(45) DEFAULT NULL,
+  `MobileNo` varchar(45) DEFAULT NULL,
+  `VATNo` varchar(45) DEFAULT NULL,
+  `RegistrationNo` varchar(45) DEFAULT NULL,
+  `StatusID` int(11) NOT NULL,
+  `PostCode` varchar(45) NOT NULL,
+  PRIMARY KEY (`CompanyID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `company`
+--
+
+LOCK TABLES `company` WRITE;
+/*!40000 ALTER TABLE `company` DISABLE KEYS */;
+INSERT INTO `company` VALUES (1,'MaxiThral',NULL,NULL,NULL,1,1,'testName','test@abc.com','04423811946','00919840968058','12345','123456789',1,'600 001');
+/*!40000 ALTER TABLE `company` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `storage`
+--
+
+DROP TABLE IF EXISTS `storage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `storage` (
+  `StorageID` int(11) NOT NULL AUTO_INCREMENT,
+  `StorageDesc` varchar(200) NOT NULL,
+  PRIMARY KEY (`StorageID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `storage`
+--
+
+LOCK TABLES `storage` WRITE;
+/*!40000 ALTER TABLE `storage` DISABLE KEYS */;
+INSERT INTO `storage` VALUES (1,'Store in dry place'),(2,'tests'),(3,'nulltest'),(4,'null'),(5,'null'),(6,'null'),(7,'null'),(8,'null'),(9,'null'),(10,'null'),(11,'null'),(12,'null');
+/*!40000 ALTER TABLE `storage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productstock`
+--
+
+DROP TABLE IF EXISTS `productstock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `productstock` (
+  `ProductStockID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProductID` int(11) NOT NULL,
+  `MfgLicNo` varchar(100) NOT NULL,
+  `BatchNo` varchar(45) NOT NULL,
+  `Rate` decimal(10,0) NOT NULL,
+  `ExpDate` date NOT NULL,
+  `MfgDate` date NOT NULL,
+  `Qty` int(11) NOT NULL DEFAULT '0',
+  `FlavourID` int(11) DEFAULT '1',
+  PRIMARY KEY (`ProductStockID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productstock`
+--
+
+LOCK TABLES `productstock` WRITE;
+/*!40000 ALTER TABLE `productstock` DISABLE KEYS */;
+INSERT INTO `productstock` VALUES (1,1,'129/UA/SC/P-2007','AD12003',50,'2012-05-31','2012-05-31',10,2),(3,1,'129/UA/SC/P-2007','AD12003',50,'2012-05-31','2012-05-31',10,3);
+/*!40000 ALTER TABLE `productstock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productimage`
+--
+
+DROP TABLE IF EXISTS `productimage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `productimage` (
+  `ProductImageID` int(11) NOT NULL AUTO_INCREMENT,
+  `ImageSrc` varchar(100) NOT NULL,
+  `ProductID` int(11) NOT NULL,
+  `sort` int(11) DEFAULT '0',
+  PRIMARY KEY (`ProductImageID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productimage`
+--
+
+LOCK TABLES `productimage` WRITE;
+/*!40000 ALTER TABLE `productimage` DISABLE KEYS */;
+INSERT INTO `productimage` VALUES (1,'data/azithromycin.jpg',1,0),(2,'data/paracetamol.jpg',2,0);
+/*!40000 ALTER TABLE `productimage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `flavours`
+--
+
+DROP TABLE IF EXISTS `flavours`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `flavours` (
+  `FlavourID` int(11) NOT NULL AUTO_INCREMENT,
+  `Flavours` varchar(45) NOT NULL,
+  PRIMARY KEY (`FlavourID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `flavours`
+--
+
+LOCK TABLES `flavours` WRITE;
+/*!40000 ALTER TABLE `flavours` DISABLE KEYS */;
+INSERT INTO `flavours` VALUES (1,'No Flavour'),(2,'Vanilla Flavour'),(3,'Orange Flavour');
+/*!40000 ALTER TABLE `flavours` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `ProductID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProductName` varchar(200) NOT NULL,
+  `MetaData` varchar(250) DEFAULT NULL,
+  `Tags` varchar(250) DEFAULT NULL,
+  `CompanyID` int(11) NOT NULL,
+  `FlavourID` int(11) NOT NULL,
+  `UnitID` int(11) NOT NULL,
+  `Weight` varchar(45) NOT NULL,
+  `DosageID` int(11) NOT NULL,
+  `StorageID` int(11) NOT NULL,
+  `Imagesrc` varchar(100) NOT NULL,
+  `ProductLocationID` int(11) NOT NULL,
+  `StatusID` int(11) NOT NULL,
+  PRIMARY KEY (`ProductID`),
+  KEY `CompanyID` (`CompanyID`),
+  KEY `UnitID` (`UnitID`),
+  KEY `StatusID` (`StatusID`),
+  KEY `DosageID` (`DosageID`),
+  KEY `StoreageID` (`StorageID`),
+  CONSTRAINT `CompanyID` FOREIGN KEY (`CompanyID`) REFERENCES `company` (`CompanyID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `DosageID` FOREIGN KEY (`DosageID`) REFERENCES `dosage` (`DosageID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `StatusID` FOREIGN KEY (`StatusID`) REFERENCES `status` (`StatusID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `StoreageID` FOREIGN KEY (`StorageID`) REFERENCES `storage` (`StorageID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `UnitID` FOREIGN KEY (`UnitID`) REFERENCES `unit` (`UnitID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='list of medical products\n';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,'Azithromycin Oral Suspension I.P.',NULL,NULL,1,3,1,'15',1,1,'data/azithromycin.jpg',1,1),(2,'Azithromycin Oral Suspension I.P.',NULL,NULL,1,2,1,'15',1,1,'data/azithromycin.jpg',1,1),(3,'Paracetamol',NULL,NULL,1,1,2,'200',1,1,'data/paracetamol.jpg',1,1);
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `UserId` int(11) NOT NULL AUTO_INCREMENT,
+  `UserName` varchar(10) NOT NULL,
+  `Password` varchar(10) NOT NULL,
+  `DateCreated` date DEFAULT NULL,
+  `DateModified` date DEFAULT NULL,
+  `StatusId` int(11) NOT NULL,
+  `CreatedBy` varchar(20) DEFAULT NULL,
+  `ModifiedBy` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`UserId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Admin','Admin','2013-10-08','2013-10-08',1,NULL,NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dosage`
+--
+
+DROP TABLE IF EXISTS `dosage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dosage` (
+  `DosageID` int(11) NOT NULL AUTO_INCREMENT,
+  `DosageDesc` varchar(100) NOT NULL,
+  PRIMARY KEY (`DosageID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dosage`
+--
+
+LOCK TABLES `dosage` WRITE;
+/*!40000 ALTER TABLE `dosage` DISABLE KEYS */;
+INSERT INTO `dosage` VALUES (1,'As directed by the physician.');
+/*!40000 ALTER TABLE `dosage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `unit`
+--
+
+DROP TABLE IF EXISTS `unit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `unit` (
+  `UnitID` int(11) NOT NULL AUTO_INCREMENT,
+  `Units` varchar(45) NOT NULL,
+  PRIMARY KEY (`UnitID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unit`
+--
+
+LOCK TABLES `unit` WRITE;
+/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
+INSERT INTO `unit` VALUES (1,'ml'),(2,'mg'),(3,'g'),(4,'kg'),(5,'pack'),(6,'box'),(7,'Bottle');
+/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping events for database 'medicals'
+--
+
+--
+-- Dumping routines for database 'medicals'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-10-15 23:33:35
