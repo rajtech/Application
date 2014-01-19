@@ -69,7 +69,7 @@ public class AuthenticateResource {
         if(!isExists){
             return Response.status(401).build();
         }
-        ac = bas.generator(username, Period.days(1));
+        ac = bas.generator(username, 1);
         if (ac.getCode() == null) {
             request.setAttribute("errorMessage", BasicAuthException.USERNAME_ISEMPTY);
               Logger.getLogger(AuthenticateResource.class.getName()).log(Level.ERROR, BasicAuthException.USERNAME_ISEMPTY);

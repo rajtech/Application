@@ -4,9 +4,12 @@
  */
 package com.rajtech.dao;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mysql.jdbc.Statement;
 import com.rajtech.entity.User;
 import com.rajtech.interfaces.UserDao;
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +24,9 @@ public class UserDaoImpl implements UserDao {
 
     ArrayList<User> user;
     DatabaseConnection dbc = new DatabaseConnection();
+    MongoDbConnection mdc = new MongoDbConnection();
     Statement stm = null;
+    BasicDBObject query;
 
     @Override
     public ArrayList<User> getAllUser() {
@@ -90,39 +95,60 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(User user) {
-        try {
-            dbc.connectionPool();
-            stm = (Statement) dbc.conn.createStatement();
-            String SqlQuery = "insert into user(userid,username,password,datecreated,datemodified,statusid,createdby,modifiedby) values(null,'" + user.getUserName() + "','" + user.getPassword() + "','" + user.getDateCreated() + "','" + user.getDateModified() + "'," + user.getStatusId() + ",'" + user.getCreatedBy() + "','" + user.getModfiedBy() + "')";
-            stm.execute(SqlQuery);
-            stm.close();
-            dbc.conectionClose();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.ERROR, "Add User", ex);
+        try {
+            mdc.connectionPool();
+            query = new BasicDBObject("username", user.getUserName());
+            query.append("password", user.getPassword());
+            query.append("datecreated", user.getDateCreated());
+            query.append("datemodified", user.getDateModified());
+            query.append("statusid", user.getStatusId());
+            query.append("createdby", user.getCreatedBy());
+            query.append("modifiedby", user.getModfiedBy());
+            mdc.insertCollection("user", query);
+
+        } catch (UnknownHostException ex) {
+            java.util.logging.Logger.getLogger(UserDaoImpl.class.getName()).log(java.util.logging.Level.SEVERE, "Add User", ex);
         }
     }
 
     @Override
     public boolean isUserExists(String username, String password) {
-        Integer isExists =0;
+        Integer isExists = 0;
         try {
-            
-            dbc.medicalConnectionPool();
-            stm = (Statement) dbc.conn.createStatement();
-            String SqlQuery = "select count(*)as count from user where username ='"+username+"' and password ='"+password+"'";
-            stm.execute(SqlQuery); 
-             ResultSet rs = stm.getResultSet();
-            while (rs.next()) {
-                isExists = rs.getInt("count"); 
-                System.out.println(isExists);
-            }
-            stm.close();
-            dbc.conectionClose();
+            mdc.connectionPool();
+            BasicDBObject query = new BasicDBObject("username", username);
+            query.append("password", password);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.ERROR, "Add User", ex);
+            DBCursor cursor = mdc.findCollection("user", query);
+            isExists = cursor.size();
+            try {
+                while (cursor.hasNext()) {
+                    System.out.println(cursor.next());
+                }
+            } finally {
+                cursor.close();
+            }
+
+        } catch (UnknownHostException ex) {
+            java.util.logging.Logger.getLogger(UserDaoImpl.class.getName()).log(java.util.logging.Level.SEVERE, "Find User", ex);
         }
+        /*
+         * try {
+         *
+         * dbc.medicalConnectionPool(); stm = (Statement)
+         * dbc.conn.createStatement(); String SqlQuery = "select count(*)as
+         * count from user where username ='"+username+"' and password
+         * ='"+password+"'"; stm.execute(SqlQuery); ResultSet rs =
+         * stm.getResultSet(); while (rs.next()) { isExists =
+         * rs.getInt("count"); System.out.println(isExists); } stm.close();
+         * dbc.conectionClose();
+         *
+         * } catch (SQLException ex) {
+         * Logger.getLogger(UserDaoImpl.class.getName()).log(Level.ERROR, "Add
+         * User", ex);
+        }
+         */
         if (isExists > 0) {
             return true;
         }

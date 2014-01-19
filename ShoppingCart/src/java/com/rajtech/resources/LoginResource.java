@@ -71,7 +71,7 @@ public class LoginResource {
              location = new URI(failureurl);
                return Response.temporaryRedirect(location).build();  
         }
-        ac = bas.generator(username, Period.days(1));
+        ac = bas.generator(username, 1);
        if (ac.getCode() == null) {
             request.setAttribute("errorMessage", BasicAuthException.USERNAME_ISEMPTY);
               Logger.getLogger(AuthenticateResource.class.getName()).log(Level.ERROR, BasicAuthException.USERNAME_ISEMPTY);
