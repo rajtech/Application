@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface AuthCodeDao {
 
    public void addAuthCode(AuthCode authCode);
-   public boolean resolveAuthCode(AuthCode authCode);
+   public void resolveAuthCode(String authCode);
     
     
 }

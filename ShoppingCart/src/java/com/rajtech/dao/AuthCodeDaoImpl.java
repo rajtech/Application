@@ -5,6 +5,7 @@
 package com.rajtech.dao;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mysql.jdbc.Statement;
 import com.rajtech.entity.User;
 import com.rajtech.interfaces.AuthCodeDao;
@@ -17,14 +18,16 @@ import java.util.ArrayList;
  * @author Rajtech
  */
 public class AuthCodeDaoImpl implements AuthCodeDao {
- ArrayList<AuthCode> authCode;
+
+    ArrayList<AuthCode> authCode;
     MongoDbConnection mdc = new MongoDbConnection();
     BasicDBObject query;
+    DBCursor cursor;
 
     @Override
     public void addAuthCode(AuthCode authCode) {
-      try {
-         
+        try {
+
             mdc.connectionPool();
             query = new BasicDBObject("code", authCode.getCode());
             query.append("validPeriod", authCode.getValidPeriod());
@@ -33,14 +36,27 @@ public class AuthCodeDaoImpl implements AuthCodeDao {
             mdc.insertCollection("authCode", query);
 
         } catch (UnknownHostException ex) {
-            java.util.logging.Logger.getLogger(UserDaoImpl.class.getName()).log(java.util.logging.Level.SEVERE, "Add AuthCode", ex);
+            java.util.logging.Logger.getLogger(AuthCodeDaoImpl.class.getName()).log(java.util.logging.Level.SEVERE, "Add AuthCode", ex);
         }
     }
 
-
     @Override
-    public boolean resolveAuthCode(AuthCode authCode) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void resolveAuthCode(String authCode) {
+        try {
+            mdc.connectionPool();
+            query = new BasicDBObject("code", authCode);
+            try {
+                cursor = mdc.findCollection("authCode", query);
+                while (cursor.hasNext()) {
+                    System.out.println(cursor.next());
+                }
+            } finally {
+                cursor.close();
+            }
+
+        } catch (UnknownHostException ex) {
+            java.util.logging.Logger.getLogger(AuthCodeDaoImpl.class.getName()).log(java.util.logging.Level.SEVERE, "Get AuthCode", ex);
+        }
+
     }
-    
 }

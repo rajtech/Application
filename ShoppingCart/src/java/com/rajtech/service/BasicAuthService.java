@@ -26,7 +26,7 @@ public class BasicAuthService {
         }
         return createAuthToken(username,validPeriod);
     }
-    private AuthCode createAuthToken(String username,int validPeriod){
+   public  AuthCode createAuthToken(String username,int validPeriod){
         String code = guidGenerator.generator();
         DateFormat currentDate = DateFormat.getDateInstance();
         Date d = new Date();
@@ -36,11 +36,16 @@ public class BasicAuthService {
          acdi.addAuthCode(ac);
         return ac;
     }
-    public static Date addDays(Date d, int days)
+     private static Date addDays(Date d, int days)
     {
         d.setTime(d.getTime() + days * 1000 * 60 * 60 * 24);
         return d;
     }
-            
+          
+     public void getAuthToken(String code){
+         acdi.resolveAuthCode(code);
+      
+         
+     }
     
 }

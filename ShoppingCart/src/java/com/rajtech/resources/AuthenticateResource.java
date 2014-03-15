@@ -8,12 +8,8 @@ import com.rajtech.dao.UserDaoImpl;
 import com.rajtech.exceptions.BasicAuthException;
 import com.rajtech.service.AuthCode;
 import com.rajtech.service.BasicAuthService;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +21,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.joda.time.Period;
 
 /**
  * REST Web Service
@@ -46,6 +41,7 @@ public class AuthenticateResource {
     private URI location;
      Logger logger = Logger.getLogger(AuthenticateResource.class.getName());
      UserDaoImpl udi = new UserDaoImpl();
+       AuthCode ac= new AuthCode();
     /**
      * Creates a new instance of AuthenticateResource
      */
@@ -60,7 +56,6 @@ public class AuthenticateResource {
    // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@FormParam("username") String  username,@FormParam("password") String  password,@FormParam("sendTo") String  sendto,@FormParam("failureUrl") String  failureurl) throws URISyntaxException {
-        AuthCode ac = new AuthCode();
         System.out.println("Output from Server .... \n");
         session = request.getSession();
         java.util.Date date = new java.util.Date();
@@ -102,5 +97,13 @@ public class AuthenticateResource {
     @PUT
     @Consumes("application/xml")
     public void putXml(String content) {
+    }
+    
+    @GET
+    @Consumes("application/json")
+   @Produces("application/json")
+    public void getAuthCode(AuthCode authcode){
+        
+        
     }
 }
