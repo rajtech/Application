@@ -46,7 +46,7 @@ public class AuthCodeDaoImpl implements AuthCodeDao {
             mdc.connectionPool();
             query = new BasicDBObject("code", authCode);
             try {
-                cursor = mdc.findCollection("authCode", query);
+                cursor = mdc.findCollectionByObject("authCode", query);
                 while (cursor.hasNext()) {
                     System.out.println(cursor.next());
                 }

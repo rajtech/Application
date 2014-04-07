@@ -36,9 +36,14 @@ public class MongoDbConnection {
         coll.remove(doc);
         
     }
-    public DBCursor findCollection(String name, BasicDBObject doc){
+    public DBCursor findCollectionByObject(String name, BasicDBObject doc){
         coll = db.getCollection(name);
         DBCursor cursor = coll.find(doc);
+        return cursor;
+    }
+    public DBCursor findCollection(String name){
+        coll = db.getCollection(name);
+        DBCursor cursor = coll.find();
         return cursor;
     }
     

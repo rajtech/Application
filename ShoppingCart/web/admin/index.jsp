@@ -40,7 +40,9 @@
             <td>&nbsp;</td>
           </tr>
           <tr>
-              <td style="text-align: right;"><input type="submit" value="Login" class ="button"/><a onclick="$('#form').submit();" class="button">Login</a></td>
+              <td style="text-align: right;">
+                  
+                  <a onclick="$('#form').submit();" class="button">Login</a></td>
           </tr>
         </table>
         <?php if ($redirect) { ?>
